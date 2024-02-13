@@ -6,7 +6,7 @@ function Filters({changeLocation, changeYear, changeQuater, showQuaterChoice}) {
         <>
           <div className="filters-group">
           {cities.map(city => (
-            <button className="filter-btn" key={city} onClick={() => changeLocation(city)}>{city}</button>
+            <button className="filter-btn" key={city} onClick={() => changeLocation(city)}>{city.split('_').join(' ')}</button>
           ))}
           </div>
           <div className="filters-group">

@@ -1,10 +1,67 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as d3 from "d3"
 import Filters from "./Filters";
 
+const intialFiltersState = {
+    location: "Seattle",
+    year: "All years",
+    quater: "Whole year"
+}
+
+const quaters = {
+    Q1: {
+        start: "Jan 1",
+        end: "Mar 31"
+    },
+    Q2: {
+        start: "Apr 1",
+        end: "Jun 30"
+    },
+    Q3: {
+        start: "Jul 1",
+        end: "Sep 30"
+    },
+    Q4: {
+        start: "Oct 1",
+        end: "Dec 31"
+    }
+}
 
 
-function AreaChart ({filteredData, handleYearChoice, handleQuaterChoice, handleLocationChoice, activeFilter}) {
+
+// const handleMouseEvents = (data) => {
+//
+//     d3.selectAll(".areas-container path")
+//         .on("mousemove", e => {
+//
+//             // Set the position of the tooltip according to the x-position of the mouse
+//             console.log(d3.pointer(e))
+//             const xPosition = d3.pointer(e)[0];
+//             d3.select(".tooltip")
+//                 .attr("transform", `translate(${xPosition}, 0)`);
+//
+//             // Get the year corresponding to the x-position and set the text of the tooltip"s year label
+//             // scaleX is a continuous scale, which means it can return any floating number
+//             // Since the years are integers, we need to round the value returned by the scale
+//             const year = Math.round(xScale.invert(xPosition));
+//             d3.select(".tooltip-year").text(year);
+//
+//             // Populate the tooltip content
+//             const yearData = data.find(item => item.year === year);
+//
+//             formatsInfo.forEach(format => {
+//                 d3.select(`.sales-${format.id}`)
+//                     .text(`${format.label}: ${d3.format(",.1r")(yearData[format.id])}M$`);
+//             });
+//
+//         });
+//
+// };
+
+function AreaChart ({data}) {
+    const [activeFilter, setActiveFilter] = useState(intialFiltersState)
+    const [filteredData, setFilteredData] = useState(data);
+
     // SVG
     const width = 1000
     const height = 500
@@ -16,18 +73,63 @@ function AreaChart ({filteredData, handleYearChoice, handleQuaterChoice, handleL
         left: 70
     };
 
+
+
     // chart in SVG
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
+    function handleLocationChoice(newLocation) {
+        console.log(newLocation)
+        setActiveFilter(prev => {
+            return {
+                ...prev,
+                location: newLocation
+            }
+        })
+    }
 
+    function handleYearChoice(newYear) {
+        console.log(activeFilter)
+        setActiveFilter(prev => {
+            return {
+                ...prev,
+                year: newYear,
+                quater: "Whole year"
+            }
+        })
+    }
+
+    function handleQuaterChoice(newQuater) {
+        console.log(activeFilter)
+        setActiveFilter(prev => {
+            return {
+                ...prev,
+                quater: newQuater
+            }
+        })
+    }
+
+    useEffect(() => {
+        console.log(new Date(new Date(quaters["Q2"].start + " " + 2012)))
+        const filtered = data.filter((d) => {
+            return d.location === activeFilter.location
+              && ((activeFilter.year === "All years") ? true : d.date.getFullYear() === activeFilter.year)
+              && ((activeFilter.quater === "Whole year") 
+                  ? true 
+                  : (d.date >= new Date(quaters[activeFilter.quater].start + " " + d.date.getFullYear())
+                    && d.date <= new Date(quaters[activeFilter.quater].end + " " + d.date.getFullYear()))
+                  )
+        })
+        
+        setFilteredData(filtered)
+    }, [activeFilter])
 
     useEffect(() => {
         // data = data.filter(a => a.location === "Seattle")
         console.log(activeFilter)
         const svg = d3.select(".line-chart-container")
             .append("svg")
-            .attr("class", "area-chart")
             .attr("viewBox", `0 0 ${width} ${height}`)
         
         const innerChart = svg.append("g").attr("class", "area").attr("transform", `translate(${margin.left}, ${margin.top})`);
