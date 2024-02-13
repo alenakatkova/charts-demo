@@ -3,7 +3,7 @@ import './App.css'
 import * as d3 from 'd3';
 import temperatureDatasetURL from './data/temperature_data.csv?url'
 import AreaChart from './components/AreaChart';
-
+import DonutChart from "./components/DonutChart.jsx";
 const intialFiltersState = {
     location: "Seattle",
     year: "All years",
@@ -108,6 +108,7 @@ function App() {
         handleQuaterChoice={handleQuaterChoice}
         activeFilter={activeFilter}
     />}
+        {!loading && <DonutChart filteredData={filteredData} /> }
         <ul>
             <li>DONE switch cities</li>
             <li>DONE switch years</li>

@@ -59,6 +59,15 @@
   border: 1px solid blue; */
 }
 
+.donut-chart-container {
+  width: 70vw;
+  margin: 0 auto;
+  border: 1px solid blue;
+  /*  min-height: 100vh;
+
+    */
+}
+
 svg.area-chart {
   /* border: 1px solid black; */
   margin-right: auto;
@@ -82,3 +91,29 @@ svg.area-chart {
   opacity: 0.2;
 }
 
+.legend-container ul {
+  list-style: none;
+}
+
+.color-legend {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0;
+  padding-left: 0;
+}
+.color-legend-item {
+  margin: 5px 12px;
+  font-size: 1.4rem;
+}
+.color-legend span {
+  display: inline-block;
+}
+.color-legend-item-color {
+  position: relative;
+  top: 0;
+  width: 14px;
+  height: 14px;
+  margin-right: 5px;
+  border-radius: 3px;
+}
