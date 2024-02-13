@@ -91,16 +91,17 @@ svg.area-chart {
   opacity: 0.2;
 }
 
-.legend-container ul {
-  list-style: none;
-}
+
 
 .color-legend {
   display: flex;
-  justify-content: center;
+  /*justify-content: center;*/
   flex-wrap: wrap;
+  flex-direction: column;
+  /*position: absolute;*/
   margin: 0;
   padding-left: 0;
+  list-style: none;
 }
 .color-legend-item {
   margin: 5px 12px;
