@@ -50,6 +50,7 @@ function App() {
       <li>donut chart for days with different precipitations</li>
       <li>highlight active filters</li>
       <li>delete underscore from NY</li>
+      <li>add legends</li>
      </ul>
     </div>
   )
