@@ -113,17 +113,6 @@ function App() {
     />}
         {!loading && <DonutChart filteredData={filteredData} /> }
         <ul className="todo">
-            <li>DONE switch cities</li>
-            <li>DONE switch years</li>
-            <li>DONE if 13 month and less do not translate the month label</li>
-            <li>DONE for quarters ??</li>
-            <li>DONE for quaters show avarage dots</li>
-            <li>DONE delete underscore from NY</li>
-            <li>DONE for degrees show horizontal lines</li>
-            <li>when hovering on the dot show precipitation in tooltip</li>
-            <li>style tooltip</li>
-            <li>bar chart for something (comparison of seatle and new york)</li>
-            <li>donut chart for days with different precipitations</li>
             <li>highlight active filters</li>
             <li>add legends</li>
         </ul>

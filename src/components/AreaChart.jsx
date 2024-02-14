@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import * as d3 from "d3"
 import Filters from "./Filters";
+import { act } from "react-dom/test-utils";
 
 
 
@@ -118,9 +119,39 @@ function AreaChart ({filteredData, handleYearChoice, handleQuaterChoice, handleL
          svg
          .append("text")
          .text("Temperature (°C)")
-        .attr("y", 20);
+        .attr("y", 40);
 
-        const aubergine = "#75485E";
+      const aubergine = "#75485E";
+         // adding legend
+      svg
+          .append("text")
+          .text("temperature fluctuations")
+          .attr("y", 30)
+          .attr("x", innerWidth - 150);
+      svg
+          .append("rect")
+          .attr("width", 10)
+          .attr("height", 10)
+          .attr("y", 21)
+          .attr("x", innerWidth - 165)
+          .attr("fill", aubergine)
+          .attr("opacity", "0.4");
+
+      if (activeFilter.quater !== "Whole year") {
+        svg
+            .append("text")
+            .text("average temperature")
+            .attr("y", 30)
+            .attr("x", innerWidth - 350);
+        svg
+            .append("circle")
+            .attr("r", 5)
+            // .attr("height", 10)
+            .attr("cy", 25)
+            .attr("cx", innerWidth - 358)
+            .attr("fill", aubergine);
+      }
+
         // AREA ILLUSTRATING THE MIN AND MAX TEMPERATURES
         const areaGenerator = d3
         .area()
