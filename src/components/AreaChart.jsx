@@ -267,6 +267,7 @@ function AreaChart ({filteredData, handleYearChoice, handleQuaterChoice, handleL
 
               tooltipText
                   .append("tspan")
+                  .attr("class", `sales-${format}`)
                   .attr("x", 60)
                   .attr("y", i * 2* textLineHeight + 100)
                   .text(dataFirstYear[format] + "°C");
@@ -298,10 +299,10 @@ function AreaChart ({filteredData, handleYearChoice, handleQuaterChoice, handleL
                     const yearData = data.find(item => {
                         return item.date.toISOString().split('T')[0] === dateFromScale.toISOString().split('T')[0]
                     });
-
+console.log(yearData)
                     tooltipData.forEach(format => {
                         d3.select(`.sales-${format}`)
-                            .text(yearData[format]);
+                            .text(yearData[format] + "°C");
                     });
 
                 });
