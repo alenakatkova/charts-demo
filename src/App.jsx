@@ -97,6 +97,7 @@ function App() {
     <div className="container">
       <h1>Exploring Climate Trends: New York and Seattle (2012-2015)</h1>
       <Filters
+          activeFilter={activeFilter}
           changeLocation={handleLocationChoice}
           changeYear={handleYearChoice}
           showQuaterChoice={activeFilter.year !== "All years"}
@@ -112,10 +113,7 @@ function App() {
         activeFilter={activeFilter}
     />}
         {!loading && <DonutChart filteredData={filteredData} /> }
-        <ul className="todo">
-            <li>highlight active filters</li>
-            <li>add legends</li>
-        </ul>
+
     </div>
   )
 }
