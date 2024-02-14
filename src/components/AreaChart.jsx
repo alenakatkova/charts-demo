@@ -10,10 +10,10 @@ function AreaChart ({filteredData, handleYearChoice, handleQuaterChoice, handleL
     const height = 500
 
     const margin = {
-        top: 40,
-        right: 70,
+        top: 70,
+        right: 100,
         bottom: 70,
-        left: 70
+        left: 40
     };
 
     // chart in SVG
@@ -24,7 +24,6 @@ function AreaChart ({filteredData, handleYearChoice, handleQuaterChoice, handleL
 
     useEffect(() => {
         // data = data.filter(a => a.location === "Seattle")
-        console.log(activeFilter)
         const svg = d3.select(".line-chart-container")
             .append("svg")
             .attr("class", "area-chart")
@@ -42,7 +41,6 @@ function AreaChart ({filteredData, handleYearChoice, handleQuaterChoice, handleL
         const T = xScale.ticks(d3.timeMonth)
         const f = xScale.tickFormat();
         const axixXTicks = T.map(f);
-        console.log(T.map(f))
 
         let bottomAxis
         if (axixXTicks.length <= 12) {
@@ -98,7 +96,6 @@ function AreaChart ({filteredData, handleYearChoice, handleQuaterChoice, handleL
 
         // creating scale for y axis based on the temperature values
         const maxTemp = d3.max(filteredData, d => d.temp_max);
-        console.log(maxTemp)
         const minTemp = d3.min(filteredData, d => d.temp_min);
         const yScale = d3.scaleLinear([minTemp, maxTemp], [innerHeight, 0])
 
@@ -173,7 +170,7 @@ function AreaChart ({filteredData, handleYearChoice, handleQuaterChoice, handleL
         const createTooltip = (data) => {
 
             const tooltipWidth = 100;
-            const tooltipHeight = 190;
+            const tooltipHeight = 150;
             const textColor = "#494e4f";
             const textLineHeight = 22;
 
@@ -181,29 +178,29 @@ function AreaChart ({filteredData, handleYearChoice, handleQuaterChoice, handleL
                 .append("g")
                 .attr("class", "tooltip");
 
+            tooltip
+                .append("rect")
+                .attr("y", -20)
+                .attr("width", tooltipWidth)
+                .attr("height", tooltipHeight)
+                .attr("opacity", "0.4")
+                .attr("rx", "10")
+                .attr("fill", "#48755f")
             // Append the vertical line
             tooltip
                 .append("line")
                 .attr("x1", 0)
                 .attr("x2", 0)
-                .attr("y1", -30)
+                .attr("y1", -10)
                 .attr("y2", innerHeight)
-                .attr("stroke", textColor)
+                .attr("stroke", "#48755f")
                 .attr("stroke-width", 2)
-                .attr("stroke-dasharray", "6 4");
+                .attr("stroke-dasharray", "6 4")
+                // .attr("opacity", "0.6");
 
             // Append the year at the bottom of the tooltip
             const firstYear = d3.min(data, d => d.date);
-            const tooltipYear = tooltip
-                .append("text")
-                .attr("class", "tooltip-year")
-                .attr("x", 0)
-                .attr("y", 25)
-                .style("font-size", "16px")
-                .style("font-weight", 700)
-                .style("fill", textColor)
-                .attr("text-anchor", "middle")
-                .text(firstYear.toISOString().split('T')[0]);
+
 
             // Append the text element that will wrap to sales breakdown per music format
             const tooltipContent = tooltip
@@ -216,22 +213,34 @@ function AreaChart ({filteredData, handleYearChoice, handleQuaterChoice, handleL
                 .style("font-weight", 500)
                 .style("fill", textColor);
 
+          const tooltipYear = tooltipContent
+              .append("text")
+              .attr("class", "tooltip-year")
+              .attr("x", tooltipWidth)
+              .attr("y", 50)
+              .style("font-size", "12px")
+              .style("font-weight", 700)
+              .style("fill", textColor)
+              .attr("text-anchor", "middle")
+              .text(firstYear.toLocaleDateString('en-GB'));
+              // .text(firstYear.toISOString().split('T')[0]);
             // Append the sales breakdown per music format and a colored circle for each format
             const dataFirstYear = data.find(item => item.date === firstYear);
             ['temp_min', 'temp_max'].forEach((format, i) => {
-                tooltipText
-                    .append("tspan")
-                    .attr("class", `sales-${format}`)
-                    .attr("x", 0)
-                    .attr("y", i * textLineHeight)
-                    .text(dataFirstYear[format]);
+              tooltipText
+                  .append("tspan")
+                  .attr("x", 60)
+                  .attr("y", i * 2 * textLineHeight + 80)
+                  .text(format === "temp_min" ? "Minimum" : "Maximum");
 
-                tooltipContent
-                    .append("circle")
-                    .attr("cx", -10)
-                    .attr("cy", i * textLineHeight - 5)
-                    .attr("r", 6)
-                    .attr("fill", format.color);
+
+              tooltipText
+                  .append("tspan")
+                  .attr("x", 60)
+                  .attr("y", i * 2* textLineHeight + 100)
+                  .text(dataFirstYear[format] + "°C");
+
+
             });
 
         };
@@ -250,7 +259,8 @@ function AreaChart ({filteredData, handleYearChoice, handleQuaterChoice, handleL
                     // Since the years are integers, we need to round the value returned by the scale
                     const dateFromScale = xScale.invert(xPosition);
 
-                    d3.select(".tooltip-year").text(dateFromScale.toISOString().split('T')[0]);
+                    d3.select(".tooltip-year").text(dateFromScale.toLocaleDateString('en-GB'));
+                    // d3.select(".tooltip-year").text(dateFromScale.toISOString().split('T')[0]);
 
 
                     // Populate the tooltip content
@@ -276,7 +286,7 @@ function AreaChart ({filteredData, handleYearChoice, handleQuaterChoice, handleL
 
     return (
         <div className="line-chart-container">
-
+          <h2>Daily Temperature Fluctuations</h2>
         </div>
     )
 }

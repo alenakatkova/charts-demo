@@ -5,6 +5,10 @@
   text-align: center;
 } */
 
+* {
+  box-sizing: border-box;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -64,33 +68,37 @@
   flex-direction: column;
 }
 
+h2 {
+  /*border: 1px solid red;*/
+  text-align: center;
+}
+
 .line-chart-container {
-  width: 70%;
-  border: 1px solid blue;
+  width: 73%;
+  /*border: 1px solid blue;*/
  /*  min-height: 100vh;
   
   border: 1px solid blue; */
 }
 
 .donut-chart-container {
-  width: 30%;
+  width: 27%;
   margin: 0 auto;
-  border: 1px solid blue;
-  padding-top: 10px;
+  /*border: 1px solid blue;*/
   /*  min-height: 100vh;
 
     */
 }
 
 svg.area-chart {
-   border: 1px solid black;
+   /*border: 1px solid black;*/
   margin-right: auto;
   margin-left: auto;
   width: 100%;
 }
 
 svg.donut-chart {
-  border: 1px solid black;
+  /*border: 1px solid black;*/
   margin-right: auto;
   margin-left: auto;
   width: 100%;

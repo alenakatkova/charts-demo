@@ -52,7 +52,6 @@ function DonutChart ({filteredData}) {
         const pieGenerator = d3.pie()
             .value(d => d.amountOfDays);
         const annotatedData = pieGenerator(formattedArray);
-        console.log(annotatedData)
 
         const formatsInfo = [
             {id: "rain", label: "Rain", color: "#76B6C2"},
@@ -70,8 +69,8 @@ function DonutChart ({filteredData}) {
         const arcGenerator = d3.arc()
             .startAngle(d => d.startAngle)
             .endAngle(d => d.endAngle)
-            .innerRadius(60)
-            .outerRadius(150)
+            .innerRadius(80)
+            .outerRadius(170)
             .padAngle(0.03)
             .cornerRadius(10);
 
@@ -137,6 +136,7 @@ function DonutChart ({filteredData}) {
 
     return (
         <div className="donut-chart-container">
+            <h2>Weather Pattern Distribution</h2>
             <div className="legend-container"></div>
         </div>
     )

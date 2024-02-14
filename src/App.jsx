@@ -37,7 +37,6 @@ function App() {
     const [filteredData, setFilteredData] = useState([]);
 
     function handleLocationChoice(newLocation) {
-        console.log(newLocation)
         setActiveFilter(prev => {
             return {
                 ...prev,
@@ -47,7 +46,6 @@ function App() {
     }
 
     function handleYearChoice(newYear) {
-        console.log(activeFilter)
         setActiveFilter(prev => {
             return {
                 ...prev,
@@ -58,7 +56,6 @@ function App() {
     }
 
     function handleQuaterChoice(newQuater) {
-        console.log(activeFilter)
         setActiveFilter(prev => {
             return {
                 ...prev,
@@ -68,7 +65,6 @@ function App() {
     }
 
     useEffect(() => {
-        console.log(new Date(new Date(quaters["Q2"].start + " " + 2012)))
         const filtered = temperatureData.filter((d) => {
             return d.location === activeFilter.location
                 && ((activeFilter.year === "All years") ? true : d.date.getFullYear() === activeFilter.year)
@@ -89,7 +85,6 @@ function App() {
       .csv(temperatureDatasetURL, d3.autoType)
       .then((data) => {
         if (mounted) {
-          console.log(data)
           setTemperatureData(data)
             setFilteredData(data.filter(d => d.location === "New_York"))
           setLoading(false);
@@ -100,6 +95,7 @@ function App() {
 
   return (
     <div className="container">
+      <h1>Exploring Climate Trends: New York and Seattle (2012-2015)</h1>
       <Filters
           changeLocation={handleLocationChoice}
           changeYear={handleYearChoice}
