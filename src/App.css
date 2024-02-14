@@ -47,29 +47,50 @@
 
 .container {
   width: 100vw;
+  padding-top: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 auto;
  /* min-height: 100vh; 
   border: 1px solid blue; */
 }
 
+.filters-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .line-chart-container {
-  width: 70vw;
-  margin: 0 auto;
+  width: 70%;
+  border: 1px solid blue;
  /*  min-height: 100vh;
   
   border: 1px solid blue; */
 }
 
 .donut-chart-container {
-  width: 70vw;
+  width: 30%;
   margin: 0 auto;
   border: 1px solid blue;
+  padding-top: 10px;
   /*  min-height: 100vh;
 
     */
 }
 
 svg.area-chart {
-  /* border: 1px solid black; */
+   border: 1px solid black;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+}
+
+svg.donut-chart {
+  border: 1px solid black;
   margin-right: auto;
   margin-left: auto;
   width: 100%;
@@ -95,9 +116,9 @@ svg.area-chart {
 
 .color-legend {
   display: flex;
-  /*justify-content: center;*/
+  justify-content: center;
   flex-wrap: wrap;
-  flex-direction: column;
+  /*flex-direction: column;*/
   /*position: absolute;*/
   margin: 0;
   padding-left: 0;
@@ -109,6 +130,7 @@ svg.area-chart {
 }
 .color-legend span {
   display: inline-block;
+  font-size: 18px;
 }
 .color-legend-item-color {
   position: relative;
@@ -117,4 +139,8 @@ svg.area-chart {
   height: 14px;
   margin-right: 5px;
   border-radius: 3px;
+}
+
+.todo {
+  width: 100%;
 }

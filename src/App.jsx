@@ -4,6 +4,7 @@ import * as d3 from 'd3';
 import temperatureDatasetURL from './data/temperature_data.csv?url'
 import AreaChart from './components/AreaChart';
 import DonutChart from "./components/DonutChart.jsx";
+import Filters from "./components/Filters.jsx";
 const intialFiltersState = {
     location: "Seattle",
     year: "All years",
@@ -99,6 +100,12 @@ function App() {
 
   return (
     <div className="container">
+      <Filters
+          changeLocation={handleLocationChoice}
+          changeYear={handleYearChoice}
+          showQuaterChoice={activeFilter.year !== "All years"}
+          changeQuater={handleQuaterChoice}
+      />
      {loading && <div className="loading">Loading...</div>}
 
     {!loading && <AreaChart
@@ -109,7 +116,7 @@ function App() {
         activeFilter={activeFilter}
     />}
         {!loading && <DonutChart filteredData={filteredData} /> }
-        <ul>
+        <ul className="todo">
             <li>DONE switch cities</li>
             <li>DONE switch years</li>
             <li>DONE if 13 month and less do not translate the month label</li>

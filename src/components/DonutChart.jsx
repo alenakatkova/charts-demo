@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import * as d3 from "d3"
 import Filters from "./Filters";
 
-function AreaChart ({filteredData}) {
-    const width = 1000
+function DonutChart ({filteredData}) {
+    const width = 500
     const height = 500
 
     const margin = {
-        top: 40,
+        top: 0,
         right: 70,
-        bottom: 70,
+        bottom: 50,
         left: 70
     };
 
@@ -70,8 +70,8 @@ function AreaChart ({filteredData}) {
         const arcGenerator = d3.arc()
             .startAngle(d => d.startAngle)
             .endAngle(d => d.endAngle)
-            .innerRadius(100)
-            .outerRadius(200)
+            .innerRadius(60)
+            .outerRadius(150)
             .padAngle(0.03)
             .cornerRadius(10);
 
@@ -106,7 +106,7 @@ function AreaChart ({filteredData}) {
             .attr("dominant-baseline", "middle")
             .attr("fill", "#f6fafc")
             .attr("fill-opacity", d => d.percentage < 0.05 ? 0 : 1)
-            .style("font-size", "26px")
+            .style("font-size", "20px")
             .style("font-weight", 500);
 
         const legendItems = d3.select(".legend-container")
@@ -131,15 +131,15 @@ function AreaChart ({filteredData}) {
 
         return () => {
         svg.remove()
+            legendItems.remove()
         }
     }, [filteredData])
 
     return (
         <div className="donut-chart-container">
-            donut
             <div className="legend-container"></div>
         </div>
     )
 }
 
-export default AreaChart
+export default DonutChart

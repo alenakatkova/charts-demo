@@ -276,12 +276,7 @@ function AreaChart ({filteredData, handleYearChoice, handleQuaterChoice, handleL
 
     return (
         <div className="line-chart-container">
-            <Filters 
-                changeLocation={handleLocationChoice} 
-                changeYear={handleYearChoice}
-                showQuaterChoice={activeFilter.year !== "All years"}
-                changeQuater={handleQuaterChoice}
-            />
+
         </div>
     )
 }
